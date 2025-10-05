@@ -1,0 +1,199 @@
+# Инициализация репозитория
+git init
+
+# Проверка существующих веток
+git branch
+
+# Описание проекта в README.md
+echo "Описание проекта: создать репозиторий и смоделировать процесс разработки и работы с системой контроля версий. При этом весь процесс разработки должен вестись в Git только через командную строку (git CLI). Использование встроенных инструментов IDE (например, кнопок Git в VS Code, Rider и т.п.) запрещено." >> README.md
+
+# Создание файла .gitignore
+echo ".ignore" > .gitignore
+
+# Добавление файлов
+git add README.md
+git add .gitignore
+git commit -m "lab-work commit"
+git log --oneline
+
+# Проверка текущих веток
+git branch
+
+# Переименование текущей ветки в main
+git branch -M main
+
+# Подключение удаленного репозитория
+git remote add origin https://github.com/rimkus321/lab-work.git
+
+# Пуш ветки main
+git push -u origin main
+git push -u origin main
+
+# Проверка подключенных удаленных репозиториев
+git remote -v
+
+# Проверка статуса репозитория
+git status
+
+# Проверка текущих веток
+git branch
+
+# Обновление ссылки на удаленный репозиторий
+git remote set-url origin https://github.com/rimkus321/lab-work.git
+
+# Пуш изменений в удаленный репозиторий
+git push -u origin main
+
+# 2. Git flow
+
+# Создание ветки develop
+git checkout -b develop
+
+# Пуш ветки develop
+git push -u origin develop
+
+# Создание feature ветки
+git checkout -b feature/main
+
+# Добавление файла основной функциональности
+git add main.cs
+git commit -m "add main.cs"
+git checkout develop
+
+# Создание feature ветки валидации
+git checkout -b feature/validation
+git add validation.cs
+git commit -m "add validation.cs"
+git checkout develop
+
+# Мерджи веток
+git merge --no-ff feature/main -m "merge main"
+git merge --no-ff feature/validation -m "merge validation"
+
+# Пуш обновленной ветки develop
+git push origin develop
+
+# 3. Работа с ветками
+
+# Переход в ветку feature/validation
+git checkout feature/validation
+
+# Перебазирование ветки validation на актуальную develop
+git rebase develop
+
+# Возврат в ветку develop
+git checkout develop
+
+# Создание новой feature-ветки
+git checkout -b feature/new
+
+# Добавление нового функционала
+git add new.cs
+git commit -m "new func"
+
+# Возврат в ветку develop
+git checkout develop
+
+# Просмотр истории коммитов новой ветки
+git log feature/new --oneline -1
+
+# Перенос конкретного коммита в с помощью cherry pick
+git cherry-pick 5551544
+
+# 4. Откаты изменений
+
+# Добавление файла с багом
+git add bug.cs
+git commit -m "bug commit"
+
+# Отмена коммита
+git revert HEAD --no-edit
+
+# Добавление файла для soft reset
+git add soft.cs
+git commit -m "soft file commit"
+
+# Мягкий откат
+git reset --soft HEAD~1
+
+# Добавление файла для hard reset
+git add hard.cs
+
+# Полный откат
+git reset --hard HEAD
+
+# Восстановление файла до последнего коммита
+git restore text.cs
+
+# 5. Git hooks
+
+# Создание pre commit
+echo "Pre-commit: OK"' > .git/hooks/pre-commit
+
+# Создание commit msg
+echo "Commit-msg: OK"' > .git/hooks/commit-msg
+
+# Создание pre push
+echo "Pre-push: OK"' > .git/hooks/pre-push
+
+# Установка прав выполнения для pre commit
+chmod +x .git/hooks/pre-commit
+
+# Установка прав выполнения для commit msg
+chmod +x .git/hooks/commit-msg
+
+# Установка прав выполнения для pre push
+chmod +x .git/hooks/pre-push
+
+# Добавление всех изменений
+git add .
+git commit -m "test: check hooks"
+
+# 6. Решение конфликтрв
+
+# Создание ветки для конфликта
+git checkout -b feature/conflict-branch
+
+# Добавление файла конфликта
+git add conflict.cs
+
+# Коммит первой версии конфликта
+git commit -m "1st"
+git checkout develop
+git add conflict.cs
+
+# Коммит второй версии конфликкта
+git commit -m "2nd"
+
+# Слияние веток с конфликтом
+git merge feature/conflict-branch
+git add conflict.cs
+git commit -m "fix conflict"
+
+# 7. Работа с тегами
+
+git checkout main
+
+# Мердж develop в main версия 1.0
+git merge develop --no-ff -m "merge v1.0"
+
+# Тег для версии 1.0
+git tag v1.0
+
+# Пуш тега v1.0 в репозиторий
+git push origin v1.0
+
+# Клонирование репозитория в новую папку lab-work
+git clone . ~/lab-work
+
+# Просмотр финальной истории коммитов
+git log --oneline
+
+# Пуш всех веток в репозиторий
+git push --all
+
+# Пуш всех тегов в репозиторий
+git push --tags
+
+# Сохранение истории команд
+history | grep git > git_script.txt
